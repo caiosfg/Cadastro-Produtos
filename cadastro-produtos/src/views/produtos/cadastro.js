@@ -1,4 +1,5 @@
 import React from 'react';
+import ProdutoService from '../../app/produtoService'
 
     const stateinitial = {
         nome : '',
@@ -12,6 +13,11 @@ import React from 'react';
         
         state = stateinitial;
 
+        constructor(){
+            super()
+            this.service = new ProdutoService();
+        }
+
         onChange = (event) => {
             const valor = event.target.value;
             const nomedoCampo = event.target.name;
@@ -20,7 +26,18 @@ import React from 'react';
         }
 
         onSubmit = (event) => {
-            console.log(this.state)
+            
+            const produto = {
+                nome : this.state.nome,
+                sku : this.state.sku,
+                descricao  : this.state.descricao,
+                preco : this.state.preco,
+                fornecedor : this.state.fornecedor
+            }
+
+            this.service.salvar(produto)
+            this.clearFields()
+            console.log('Salvo com sucesso')
         }
 
         clearFields = () => {
