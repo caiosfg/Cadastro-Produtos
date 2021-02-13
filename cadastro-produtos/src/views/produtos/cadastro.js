@@ -6,7 +6,9 @@ import ProdutoService from '../../app/produtoService'
         sku : '',
         descricao  : '',
         preco : 0,
-        fornecedor : ''
+        fornecedor : '',
+        sucessMsg: false,
+        errors: []
     }
 
     export default class CadastroProduto extends React.Component{
@@ -35,9 +37,16 @@ import ProdutoService from '../../app/produtoService'
                 fornecedor : this.state.fornecedor
             }
 
-            this.service.salvar(produto)
-            this.clearFields()
-            console.log('Salvo com sucesso')
+            try{
+                this.service.salvar(produto)
+                this.clearFields()
+                this.setState({sucessMsg: true})
+                console.log('Salvo com sucesso')
+            }catch(erro){
+                const errors = erro.errors
+                this.setState({errors : errors})
+            }
+
         }
 
         clearFields = () => {
@@ -49,6 +58,26 @@ import ProdutoService from '../../app/produtoService'
                    <div className="card">
                         <div className="card-header">Cadastro de Produto</div>
                         <div className="card-body">
+                        { this.state.sucessMsg ?
+                            (
+                                <div class="alert alert-dismissible alert-primary">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Inserido!</strong> produto cadastrado com sucesso.
+                                </div>
+                            ) : (
+                                 <></>   
+                            )
+                        }
+                        { this.state.errors.length > 0 && 
+                            this.state.errors.map( msg =>{
+                                return (
+                                    <div class="alert alert-dismissible alert-danger">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        <strong>Ocorreu um Erro!</strong> {msg}
+                                    </div>
+                                )
+                            })
+                        }
                             <div className="row">
                                 <div className="col-md-6">
                                     <label>Nome: *</label>
