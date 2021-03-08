@@ -7,8 +7,8 @@ import Consulta from './views/produtos/consulta';
 export default() =>{
     return(
             <Switch>
-                <Route exact path="/cadastro-produtos" component={CadastroProduto} />
-                <Route exact path="/" component={Home} />
+                <Route exact path="/cadastro-produtos/:sku?" component={CadastroProduto} />
+                <Route exact path="/consulta-produtos" component={Home} />
                 <Route exact path="/consulta" component={Consulta} />
             </Switch>
     )
