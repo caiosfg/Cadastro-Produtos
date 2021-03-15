@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import Card from '../../components/card'
 import ProdutoService from '../../app/produtoService'
 import {withRouter} from 'react-router-dom'
 
@@ -73,11 +74,7 @@ import {withRouter} from 'react-router-dom'
 
         render(){
             return(
-                   <div className="card">
-                        <div className="card-header">
-                            {this.setState.atualizando ? 'Atualizando ' : 'Cadastro de '}
-                            Produto</div>
-                        <div className="card-body">
+                   <Card header={this.setState.atualizando ? 'Atualizando Produto ' : 'Cadastro de Produto '} >
                             <form id="frmProduto" onSubmit={this.onSubmit}>
                                     { this.state.sucessMsg ?
                                         (
@@ -142,8 +139,7 @@ import {withRouter} from 'react-router-dom'
                                             </div>
                                         </div>
                             </form>
-                        </div>
-                    </div>
+                    </Card>
             )
         }
     }
