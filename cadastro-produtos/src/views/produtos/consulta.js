@@ -24,6 +24,11 @@ class ConsultaProdutos extends React.Component{
 
     }
 
+    deletar = (sku) => {
+        const produtos = this.service.deletar(sku)
+        this.setState({produtos})
+    }
+
     render(){
         return(
             <div className="card">
@@ -52,7 +57,7 @@ class ConsultaProdutos extends React.Component{
                                                 <th scope="col">{produto.fornecedor}</th>
                                                 <th scope="col">
                                                     <button onClick={ () => this.preparaEditar(produto.sku)} className="btn btn-primary">Editar</button>
-                                                    <button className="btn btn-danger">Remover</button>
+                                                    <button onClick={ () => this.deletar(produto.sku)} className="btn btn-danger">Remover</button>
                                                 </th>
                                             </tr>  
                                         )
@@ -66,4 +71,4 @@ class ConsultaProdutos extends React.Component{
     }
 }
 
-export default withRouter(ConsultaProdutos)
+export default withRouter(ConsultaProdutos);
